@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Counter</title>
+</head>
+<body>
+    <h1>Counter: <span id="counter">0</span></h1>
+    <button id="incrementButton">Increment</button>
+    
+    <script>
+        const counterElement = document.getElementById('counter');
+        const incrementButton = document.getElementById('incrementButton');
+        const socket = new WebSocket('ws://your-server-url');
+
+        // Update counter when receiving messages from the server
+        socket.onmessage = function(event) {
+            counterElement.textContent = event.data;
+        };
+
+        // Send increment request to server
+        incrementButton.onclick = function() {
+            socket.send('increment');
+        };
+    </script>
+</body>
+</html>
